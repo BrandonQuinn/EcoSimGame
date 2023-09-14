@@ -1,0 +1,6 @@
+name, manufacturing cost, life (days), chance of failure (pd)
+fridge,300,3650,0.0001
+furniture fitout,10000,10950,0.0
+computer,500,1095,0.0001
+car,15000,5475,0.0001
+clothing set,400,365,0.01
