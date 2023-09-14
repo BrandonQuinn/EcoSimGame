@@ -1,12 +1,10 @@
 #include "cmdline.h"
-#include "main.h"
 
 int interpretCmd(string cmd) {
     if (cmd == "exit") {
-        // set the global variable in main to false to end the game loop
-        RUNNING = false;
+        return -1;
     } else if (cmd == "new item") {
-
+        
     } else {
         return 1;
     }
