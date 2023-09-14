@@ -16,6 +16,9 @@ int main() {
 		cout << "Enter: ";
 		cin >> line;
 		int success = interpretCmd(line);
+		if (success != 0) {
+			cout << "Invalid input" << endl;
+		}
 	}
 	
 	cout << "Game Stopped" << endl;
