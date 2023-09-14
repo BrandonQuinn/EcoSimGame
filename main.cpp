@@ -1,6 +1,7 @@
 #include <iostream>
 #include "main.h"
 #include "configload.h"
+#include "cmdline.h"
 
 using namespace std;
 
@@ -14,6 +15,7 @@ int main() {
 		// get input from user
 		cout << "Enter: ";
 		cin >> line;
+		int success = interpretCmd(line);
 	}
 	
 	cout << "Game Stopped" << endl;
