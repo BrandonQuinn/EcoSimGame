@@ -17,6 +17,7 @@ const int FAILURECHANCE_COL_INDEX = 3;
 
 /*
 * Converts a line from the items file to an actual item object.
+
 */
 item lineToItem(string line) {
     string tmp[ITEM_COLUMN_LIMIT];

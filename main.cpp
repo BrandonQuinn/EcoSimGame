@@ -23,8 +23,6 @@ int main() {
 			RUNNING = false;
 		}
 	}
-	
-	cout << "Game Stopped" << endl;
 
 	delete(items);
 	return 0;
