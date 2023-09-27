@@ -1,7 +1,7 @@
 #include "cmdline.h"
-#include "item.h"
+#include "sim/item.h"
 #include <iostream>
-#include <limits.h>
+#include <limits>
 
 using namespace std;
 
@@ -13,7 +13,7 @@ void flushcin() {
 }
 
 // Reads a string from the console which meets certain conditions
-string readstring(string prompt) {
+string readString(string prompt) {
 	string input = "";
 
 	// keep asking for input while the input is bad or doesn't meet certain conditions
@@ -26,7 +26,7 @@ string readstring(string prompt) {
 				cout << "Invalid input" << endl;
 				flushcin();
 			} else if (input.length() <= 1 | input.length() >= 255) {
-				cout << "Name must greater than 1 character and less than 256 characters." << endl;
+				cout << "Name must greater than 1 character and less than 256 characters" << endl;
 				input = "";
 			}
 	}
@@ -35,7 +35,7 @@ string readstring(string prompt) {
 }
 
 // Reads an integer from the console which meets certain conditions
-int readinteger(string prompt) {
+int readPositiveInteger(string prompt) {
 	int input;
 	bool continuePrompting = true;
 
@@ -49,7 +49,31 @@ int readinteger(string prompt) {
 				cout << "Invalid input" << endl;
 				flushcin();
 			} else if (input < 0) {
-				cout << "Cost must be greater than 0." << endl;
+				cout << "Integer must be greater than 0" << endl;
+			} else {
+				continuePrompting = false; // All conditions met
+			}
+	}
+
+	return input;
+}
+
+// Read a floating point value between 0 and 1 inclusive
+float readFloatingPointPercentage(string prompt) {
+	float input;
+	bool continuePrompting = true;
+
+	// keep asking for input while the input is bad or doesn't meet certain conditions
+	while (cin.bad() | continuePrompting) {
+			cout << prompt;
+			cin >> input;
+
+			// validate input
+			if (cin.fail()) {
+				cout << "Invalid input" << endl;
+				flushcin();
+			} else if (input < 0.0f | input > 1.0f) {
+				cout << "Value must be between 0.0 and 1.0" << endl;
 			} else {
 				continuePrompting = false; // All conditions met
 			}
@@ -59,26 +83,14 @@ int readinteger(string prompt) {
 }
 
 // get the item information from the command line from the user
-item readitem() {
-	// name, manufacturing cost, life (days), chance of failure (pd)
-	string name;
-	int manufactureCost;
-	int lifeDays;
-	float failureChance;
+item readItem() {
 	item item;
 	
 	cout << " == New Item == " << endl;	
-	name = readstring("Enter name: ");
-	manufactureCost = readinteger("Enter manufacturing cost: ");
-
-	cout << "Enter life (in days): ";
-	cin >> lifeDays;
-
-	cout << "Enter failure chance (decimal percentage e.g. 0.23): ";
-	cin >> failureChance;
-
-	// TODO: Finish creating item and validating input
-
+	item.name = readString("Enter name: ");
+	item.manufacturingCost = readPositiveInteger("Enter manufacturing cost: ");
+	item.lifeSpan = readPositiveInteger("Enter life (in days): ");
+	item.failureChance = readFloatingPointPercentage("Enter failure chance (decimal percentage e.g. 0.23): ");
 
 	return item;
 }
@@ -86,8 +98,12 @@ item readitem() {
 int interpretCmd(string cmd) {
 	if (cmd == "exit") {
 		return -1;
+	} else if (cmd == "help") { 
+
 	} else if (cmd == "new item") {  
-		item i = readitem();
+		item i = readItem();
+
+		// TODO: create new item to economy
 
 	} else {
 		return 1;

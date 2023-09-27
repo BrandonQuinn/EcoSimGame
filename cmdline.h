@@ -10,5 +10,6 @@ using namespace std;
  * what to do, calling appropriate functions 
 */
 int interpretCmd(string);
+void flushcin();
 
 #endif

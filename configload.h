@@ -3,7 +3,7 @@
 
 #include <string>
 #include <vector>
-#include "item.h"
+#include "sim/item.h"
 
 using namespace std;
 
