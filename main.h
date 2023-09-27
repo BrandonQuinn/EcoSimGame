@@ -4,6 +4,7 @@
 #include <iostream>
 #include "configload.h"
 #include "cmdline.h"
+#include "economy.h"
 
 using namespace std;
 

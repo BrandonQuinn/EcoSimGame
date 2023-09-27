@@ -1,12 +1,20 @@
 #include "main.h"
 
+void init() {
+	cout << "Starting game..." << endl;
+	economy::items = loadItemlist("items");
+}
+
+void finalise() {
+
+}
+
 int main() {
 	RUNNING = true;
-	cout << "Starting game..." << endl;
-
-	vector<item>* items = loadItemlist("items");
 	string line;
 	int result;
+
+	init();
 
 	while (RUNNING) {
 		result = -2;
@@ -24,6 +32,5 @@ int main() {
 		}
 	}
 
-	delete(items);
 	return 0;
 }
