@@ -13,7 +13,7 @@ int main() {
 		line = ""; // clear
 		
 		// get input from user
-		cout << "Enter: ";
+		cout << "> ";
 		getline(cin, line);
 		result = interpretCmd(line);
 		
