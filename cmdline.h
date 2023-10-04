@@ -7,7 +7,7 @@ using namespace std;
 
 /*
  * This is where the magic happens, takes the users input and determines 
- * what to do, calling appropriate functions 
+ * what to dos, calling appropriate functions 
 */
 int interpretCmd(string);
 void flushcin();

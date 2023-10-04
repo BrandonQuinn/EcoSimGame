@@ -19,7 +19,6 @@ const int HOUSEBUYER_COL_INDEX = 5;
 
 /*
 * Converts a line from the items file to an actual item object.
-
 */
 item lineToItem(string line) {
 	string tmp[ITEM_COLUMN_LIMIT];
