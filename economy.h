@@ -10,7 +10,8 @@ using namespace std;
 namespace economy {
 	extern vector<item> *items;
 	extern vector<business> *businesses;
-	int findBusinessByReference(string businessName, business* businessReference);
+	extern int addItem(item);
+	extern void simulate();
 }
 
 #endif

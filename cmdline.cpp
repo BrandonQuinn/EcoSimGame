@@ -6,7 +6,7 @@
 
 using namespace std;
 
-int SPLIT_STRING_BUFFER_SIZE = 100;
+const int SPLIT_STRING_BUFFER_SIZE = 100;
 
 // clears the fail bits and reads a line from cin to clear the buffer
 void flushcin() {
@@ -164,11 +164,17 @@ int interpretCmd(string cmd) {
 	
 	/* ITEM COMMANDS */
 	
-	else if (cmd == "newitem") {
+	else if (cmd == "newItem") {
 		// Prompt user to create a new item
 		item i = readItem();
-		economy::items->push_back(i);
-		cout << "Item '" << i.name << "' created" << endl;
+		int success = economy::addItem(i);
+
+		if (success == 0) {
+			cout << "Item '" << i.name << "' created" << endl;
+		} else if (success == -1) {
+			cout << "Item probably already exists by that name." << endl;
+		}
+
 		flushcin();
 	} else if (cmd == "listItems") {
 		// List out each item
@@ -191,12 +197,14 @@ int interpretCmd(string cmd) {
 		economy::businesses->push_back(b);
 		cout << "Created new business: " << b.name << endl;
 	} else if (cmd.substr(0, 19) == "modBus-addItem") {
-		// TODO: modify business
 		string arr[4];
 		if (splitString(cmd, arr, 4) == -1) {
 			cout << "Command has too few or too many arguments." << endl; 
 			return 1;
 		}
+
+		// economy::modBusAddItem(arr[1], arr[2], stoi(arr[3]));
+
 	} else {
 		return 1;
 	}

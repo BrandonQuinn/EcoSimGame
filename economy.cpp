@@ -4,15 +4,14 @@ namespace economy {
 	vector<item> *items;
 	vector<business> *businesses = new vector<business>();
 
-	// Linear search for the business by name, assigned the reference to the second parameter
-	int findBusinessByReference(string businessName, business* businessReference) {
-		for (int i = 0; i < businesses->size(); i++) {
-			if (businessName == businesses->at(i).name) {
-				businessReference = &businesses->at(i);
-				return 0;
+	// Adds an item ensuring it doesn't already exist
+	int addItem(item i) {
+		for (int t = 0; t < items->size(); t++) {
+			if (i.name == items->at(t).name) {
+				return -1;
 			}
 		}
-
-		return -1;
+		items->push_back(i);
+		return 0;
 	}
 }
