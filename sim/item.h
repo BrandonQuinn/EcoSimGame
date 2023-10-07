@@ -6,11 +6,13 @@
 using namespace std;
 
 class item {
-    public:
-        string name;
-        double manufacturingCost; // in AUD $
-        int lifeSpan; // in days
-        float failureChance; // per day
+	public:
+		string name;
+		int manufacturingCost; // in AUD $
+		int lifeSpan; // in days
+		float failureChance; // per day
+		float personOwnership;
+		float houseOwnership;
 };
 
 #endif

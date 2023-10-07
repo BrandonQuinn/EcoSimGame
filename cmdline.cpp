@@ -63,8 +63,8 @@ int readPositiveInteger(string prompt) {
 }
 
 // Read a floating point value between 0 and 1 inclusive
-float readDoublePercentage(string prompt) {
-	double input;
+float readFloatPercentage(string prompt) {
+	float input;
 	bool continuePrompting = true;
 
 	// keep asking for input while the input is bad or doesn't meet certain conditions
@@ -87,6 +87,7 @@ float readDoublePercentage(string prompt) {
 	return input;
 }
 
+// Return a boolean based on user input being 'y' or 'n'
 bool readYesorNo(string prompt) {
 	string input;
 	bool returnValue;
@@ -122,9 +123,9 @@ item readItem() {
 	item.name = readString("Enter name: ");
 	item.manufacturingCost = readPositiveInteger("Enter manufacturing cost: ");
 	item.lifeSpan = readPositiveInteger("Enter life (in days): ");
-	item.failureChance = readDoublePercentage("Enter failure chance (decimal percentage e.g. 0.23): ");
-	item.person = readYesorNo("Do people require this item (y/n)");
-	item.house = readYesorNo("Do people houses require this item (y/n)");
+	item.failureChance = readFloatPercentage("Enter failure chance (decimal percentage e.g. 0.23): ");
+	item.personOwnership = readFloatPercentage("Do people require this item (y/n)");
+	item.houseOwnership = readFloatPercentage("Do people houses require this item (y/n)");
 
 	return item;
 }
@@ -143,59 +144,77 @@ int splitString(string str, string* array, int argc) {
 	return 0;
 }
 
+// Write the help menu to the console
+void outputHelpMenu() {
+	cout << " == Commands == " << endl;
+
+	cout << "newItem" << endl;
+	cout << "	- Create a new item, prompts for each property" << endl;
+
+	cout << "listItems" << endl;
+	cout << "	- List all items by name" << endl;
+
+	cout << "listBus" << endl;
+	cout << "	- List all businesses by name" << endl;
+
+	cout << "newBus" << endl;
+	cout << "	- Create new business, just asks for a name" << endl;
+}
+
+// Prompt the user to create a new item
+void newItem() {
+	// Prompt user to create a new item
+	item i = readItem();
+	int success = economy::addItem(i);
+
+	if (success == 0) {
+		cout << "Item '" << i.name << "' created" << endl;
+	} else if (success == -1) {
+		cout << "Item probably already exists by that name." << endl;
+	}
+
+	flushcin();
+}
+
+// List all items
+void listItems() {
+	// List out each item
+	cout << " == Items == " << endl;
+	for (int i = 0; i < economy::items.size(); i++) {
+		cout << economy::items.at(i).name << endl;
+	}
+}
+
+// List the name of every business
+void listBusinesses() {
+	cout << " == Businesses == " << endl;
+	for (int i = 0; i < economy::businesses.size(); i++) {
+		cout << economy::businesses.at(i).name << endl;
+	}
+}
+
+// Create a new business 
+void newBusiness() {
+	business b;
+	b.name = readString("Enter business name: ");
+	economy::businesses.push_back(b);
+	cout << "Created new business: " << b.name << endl;
+}
+
+// Main command line interpreter function
 int interpretCmd(string cmd) {
 	if (cmd == "exit") {
 		return -1;
 	} else if (cmd == "help") { 
-		cout << " == Commands == " << endl;
-
-		cout << "newItem" << endl;
-		cout << "	- Create a new item, prompts for each property" << endl;
-
-		cout << "listItems" << endl;
-		cout << "	- List all items by name" << endl;
-
-		cout << "listBusinesses" << endl;
-		cout << "	- List all businesses by name" << endl;
-
-		cout << "newBusiness" << endl;
-		cout << "	- Create new business, just asks name, use modb to modify the business" << endl;
-	} 
-	
-	/* ITEM COMMANDS */
-	
-	else if (cmd == "newItem") {
-		// Prompt user to create a new item
-		item i = readItem();
-		int success = economy::addItem(i);
-
-		if (success == 0) {
-			cout << "Item '" << i.name << "' created" << endl;
-		} else if (success == -1) {
-			cout << "Item probably already exists by that name." << endl;
-		}
-
-		flushcin();
+		outputHelpMenu();
+	} else if (cmd == "newItem") {
+		newItem();
 	} else if (cmd == "listItems") {
-		// List out each item
-		cout << " == Items == " << endl;
-		for (int i = 0; i < economy::items->size(); i++) {
-			cout << economy::items->at(i).name << endl;
-		}
-	} 
-
-	/* BUSINESS COMMANDS */
-
-	else if (cmd == "listBus") {
-		cout << " == Businesses == " << endl;
-		for (int i = 0; i < economy::businesses->size(); i++) {
-			cout << economy::businesses->at(i).name << endl;
-		}
+		listItems();
+	} else if (cmd == "listBus") {
+		listBusinesses();
 	} else if (cmd == "newBus") {
-		business b;
-		b.name = readString("Enter business name: ");
-		economy::businesses->push_back(b);
-		cout << "Created new business: " << b.name << endl;
+		newBusiness();
 	} else if (cmd.substr(0, 19) == "modBus-addItem") {
 		string arr[4];
 		if (splitString(cmd, arr, 4) == -1) {

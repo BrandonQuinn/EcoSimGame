@@ -11,11 +11,11 @@ const int ITEM_COLUMN_LIMIT = 16;
 
 // Item column indexes
 const int NAME_COL_INDEX = 0;
-const int MANCOST_COL_INDEX = 1;
+const int MAN_COST_COL_INDEX = 1;
 const int LIFESPAN_COL_INDEX = 2;
-const int FAILURECHANCE_COL_INDEX = 3;
-const int PERSONBUYER_COL_INDEX = 4;
-const int HOUSEBUYER_COL_INDEX = 5;
+const int FAILURE_CHANCE_COL_INDEX = 3;
+const int PERSON_OWNERSHIP_COL_INDEX = 4;
+const int HOUSE_OWNERSHIP_COL_INDEX = 5;
 
 /*
 * Converts a line from the items file to an actual item object.
@@ -27,8 +27,8 @@ item lineToItem(string line) {
 	int manufacturingCost; // 1
 	int lifeSpan; // 2
 	float failureChance; // 3
-	int person;
-	int house;
+	float personOwnership;
+	float houseOwnernship;
 
 	for (int c = 0, colIndex = 0; c < line.length(); c++) {
 		if (line[c] == ',') {
@@ -36,20 +36,20 @@ item lineToItem(string line) {
 				case NAME_COL_INDEX:
 					name = tmp[NAME_COL_INDEX];
 					break;
-				case MANCOST_COL_INDEX: 
-					manufacturingCost = stoi(tmp[MANCOST_COL_INDEX]);
+				case MAN_COST_COL_INDEX: 
+					manufacturingCost = stoi(tmp[MAN_COST_COL_INDEX]);
 					break;
 				case LIFESPAN_COL_INDEX:
 					lifeSpan = stoi(tmp[LIFESPAN_COL_INDEX]);
 					break;
-				case FAILURECHANCE_COL_INDEX:
-					failureChance = stof(tmp[FAILURECHANCE_COL_INDEX]);
+				case FAILURE_CHANCE_COL_INDEX:
+					failureChance = stof(tmp[FAILURE_CHANCE_COL_INDEX]);
 					break;
-				case PERSONBUYER_COL_INDEX:
-					person = stoi(tmp[PERSONBUYER_COL_INDEX]);
+				case PERSON_OWNERSHIP_COL_INDEX:
+					personOwnership = stof(tmp[PERSON_OWNERSHIP_COL_INDEX]);
 					break;
-				case HOUSEBUYER_COL_INDEX:
-					house = stoi(tmp[HOUSEBUYER_COL_INDEX]);
+				case HOUSE_OWNERSHIP_COL_INDEX:
+					houseOwnernship = stof(tmp[HOUSE_OWNERSHIP_COL_INDEX]);
 					break;
 			}
 
@@ -65,27 +65,24 @@ item lineToItem(string line) {
 	newitem.manufacturingCost = manufacturingCost;
 	newitem.lifeSpan = lifeSpan;
 	newitem.failureChance = failureChance;
-	newitem.person = person;
-	newitem.house = house;
-	
+	newitem.personOwnership = personOwnership;
+	newitem.houseOwnership = houseOwnernship;
+
 	return newitem;
 }
 
-vector<item>* loadItemlist(string filename) {
-	vector<item> * items = new vector<item>();
+vector<item> loadItemlist(string filename) {
+	vector<item> items;
    
 	// load items file line by line
 	string line;
 	ifstream file;
 	file.open(filename);
-	if (!file.good()) {
-		return NULL;
-	}
 
 	getline(file, line); // skip first line which is the headings
 	while (getline(file, line)) {
 		item i = lineToItem(line);
-		items->push_back(i);
+		items.push_back(i);
 	}
 
 	file.close();

@@ -3,6 +3,7 @@
 void init() {
 	cout << "Starting game..." << endl;
 	economy::items = loadItemlist("items");
+	economy::initialize();
 }
 
 void finalise() {
