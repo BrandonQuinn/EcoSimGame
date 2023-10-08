@@ -61,15 +61,17 @@ void finalise() {
 
 int main() {
 	RUNNING = true;
-
+	
 	init();
-
-	string anything;
+	cout << "Starting simulation..." << endl;
+	
 	while (RUNNING) {
 		for (int p = 0; p < people.size(); p++) {
 			people.at(p).goToMarket(businesses);
 		}
 	}
 
+	finalise();
+	cout << "Simulation ended." << endl;
 	return 0;
 }

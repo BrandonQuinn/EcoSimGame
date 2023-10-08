@@ -14,14 +14,14 @@ struct productForSale {
 };
 
 class business {
-	private: 
+	protected: 
 		vector<productForSale> catalogue;
 	public:
 		string name;
 
 		// Returns a vector of all products that this business has for sale
 		vector<productForSale> getCatalogue();
-		void processPurchase(productForSale item);
+		void processPurchase(productForSale product);
 		void addProduct(productForSale product);
 };
 

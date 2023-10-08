@@ -1,10 +1,19 @@
 #ifndef PERSON_H_
 #define PERSON_H_
 
+#include <unordered_map>
 #include "business.h"
 #include "product.h"
 
+struct storedProduct {
+	product product;
+	int productAge;
+};
+
 class person {
+	protected:
+		unordered_map<string, storedProduct> storedProducts;
+
 	public: 
 		void goToMarket(vector<business> businesses);
 
@@ -12,7 +21,10 @@ class person {
 		void buyItem(productForSale itemForSale);
 
 		// check if the person requires the item
-		bool requiresItem(product item);
+		bool requiresProduct(product item);
+
+		// find a product in the map
+		storedProduct findProduct(product product);
 };
 
 #endif
