@@ -1,16 +1,21 @@
 #include "person.h"
 #include <iterator>
 
+#include <iostream>
+using namespace std;
 
-// TODO: Fix finding products
 storedProduct person::findProduct(product product) {
 	storedProduct storedProduct;
 
 	// get iterator for items
-	iterator iterator = storedProducts.find(product.name);
+	auto iterator = storedProducts.find(product.name);
 	
 	while (iterator != storedProducts.end()) {
-		iterator.next();
+		if (iterator->second.product.name == product.name) {
+			storedProduct = iterator->second;
+		}
+
+		iterator++;
 	}
 
 	return storedProduct;
@@ -20,11 +25,13 @@ void person::buyItem(productForSale itemForSale) {
 
 }
 
+/* 
+	find the element in the map, if not return or the age of the
+	successfully found product is greater than it's like, then the product needs to be
+	purchased
+*/
 bool person::requiresProduct(product product) {
-
-	// find the element in the map, if not found the map
-	// return an iterator pointing to the end of the iterator
-	if (storedProducts.find(product.name) == storedProducts.end()) {
+	if (findProduct(product) == NULL || findProduct(product).productAge >= product.life) {
 		return true;
 	}
 
