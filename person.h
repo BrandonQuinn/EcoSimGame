@@ -24,7 +24,7 @@ class person {
 		bool requiresProduct(product item);
 
 		// find a product in the map
-		storedProduct findProduct(product product);
+		storedProduct* findProduct(product product);
 };
 
 #endif

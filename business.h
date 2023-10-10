@@ -21,7 +21,10 @@ class business {
 
 		// Returns a vector of all products that this business has for sale
 		vector<productForSale> getCatalogue();
-		void processPurchase(productForSale product);
+
+		// Check if there's stock, return false if there's none
+		// otherwise process the purchase
+		bool processPurchase(productForSale product);
 		void addProduct(productForSale product);
 };
 

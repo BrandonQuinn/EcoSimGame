@@ -46,13 +46,37 @@ void init() {
 
 	business business;
 	business.name = "Car Company";
+	
 	productForSale car;
 	car.product = products[2];
-	car.price = 740.0;
+	car.price = 22500.0;
 	car.numberAvailable = 5;
 	business.addProduct(car);
 
+	productForSale computer;
+	car.product = products[4];
+	car.price = 740.0;
+	car.numberAvailable = 40;
+	business.addProduct(car);
+
+	productForSale furniture;
+	car.product = products[3];
+	car.price = 5000.0;
+	car.numberAvailable = 10;
+	business.addProduct(car);
+
+	productForSale clothing;
+	car.product = products[1];
+	car.price = 50.0;
+	car.numberAvailable = 200;
+	business.addProduct(car);
+
 	businesses.push_back(business);
+
+	for (int i = 0; i < INIT_NUM_PEOPLE; i++) {
+		person person;
+		people.push_back(person);
+	}
 }
 
 void finalise() {
@@ -61,7 +85,7 @@ void finalise() {
 
 int main() {
 	RUNNING = true;
-	
+
 	init();
 	cout << "Starting simulation..." << endl;
 	
