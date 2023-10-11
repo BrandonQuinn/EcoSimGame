@@ -1,82 +1,17 @@
 #include "main.h"
-#include "product.h"
-#include "business.h"
-#include "person.h"
+#include "economy.h"
 
-const int INIT_NUM_PEOPLE = 100;
-vector<person> people;
-product products[10];
-vector<business> businesses;
+/*
+	Func prototypes
+*/
+string getInput();
+void interpretCmdlnInput(string);
+void simulate();
+
+economy* econ = new economy;
 
 void init() {
-
-	/* Create some test products */
-	// products to start
-	products[0].name = "food";
-	products[0].costToMake = 25.0;
-	products[0].life = 7;
-	products[0].chanceOfRandomDisposal = 0.01;
-	products[0].failureChance = 0.05;
-
-	products[1].name = "clothing";
-	products[1].costToMake = 10.0;
-	products[1].life = 365*2;
-	products[1].chanceOfRandomDisposal = 0.09;
-	products[1].failureChance = 0.03;
-
-	products[2].name = "car";
-	products[2].costToMake = 10000.0;
-	products[2].life = 365*15;
-	products[2].chanceOfRandomDisposal = 0.0;
-	products[2].failureChance = 0.005;
-
-	products[3].name = "furniture";
-	products[3].costToMake = 2000.0;
-	products[3].life = 365*15;
-	products[3].chanceOfRandomDisposal = 0.0;
-	products[3].failureChance = 0.005;
-
-	products[4].name = "computer";
-	products[4].costToMake = 500.0;
-	products[4].life = 365*2;
-	products[4].chanceOfRandomDisposal = 0.01;
-	products[4].failureChance = 0.01;
-
-	/* Create some test businesses */
-
-	business business;
-	business.name = "Car Company";
-	
-	productForSale car;
-	car.product = products[2];
-	car.price = 22500.0;
-	car.numberAvailable = 5;
-	business.addProduct(car);
-
-	productForSale computer;
-	car.product = products[4];
-	car.price = 740.0;
-	car.numberAvailable = 40;
-	business.addProduct(car);
-
-	productForSale furniture;
-	car.product = products[3];
-	car.price = 5000.0;
-	car.numberAvailable = 10;
-	business.addProduct(car);
-
-	productForSale clothing;
-	car.product = products[1];
-	car.price = 50.0;
-	car.numberAvailable = 200;
-	business.addProduct(car);
-
-	businesses.push_back(business);
-
-	for (int i = 0; i < INIT_NUM_PEOPLE; i++) {
-		person person;
-		people.push_back(person);
-	}
+	econ->initSampleData();
 }
 
 void finalise() {
@@ -85,17 +20,34 @@ void finalise() {
 
 int main() {
 	RUNNING = true;
-
 	init();
 	cout << "Starting simulation..." << endl;
 	
 	while (RUNNING) {
-		for (int p = 0; p < people.size(); p++) {
-			people.at(p).goToMarket(businesses);
-		}
+		interpretCmdlnInput(getInput());
 	}
 
 	finalise();
 	cout << "Simulation ended." << endl;
 	return 0;
+}
+
+string getInput() {
+	string input;
+	cout << "> ";
+	cin >> input;
+	return input;
+}
+
+/*
+	Interpret command line input and figure out what to do.
+*/
+void interpretCmdlnInput(string input) {
+	cout << ">>> " << input << endl;
+
+	if (input == "exit") {
+		RUNNING = false;
+	} else if (input == "go") {
+		econ->simulate();
+	}
 }

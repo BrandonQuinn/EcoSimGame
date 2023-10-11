@@ -18,10 +18,8 @@ storedProduct* person::findProduct(product product) {
 		if (iterator->second.product.name == product.name) {
 			storedProduct = &(iterator->second);
 		}
-
 		iterator++;
 	}
-
 	return storedProduct;
 }
 
@@ -55,12 +53,12 @@ bool person::requiresProduct(product product) {
 	don't have it or it's expired, past it's life expectancy 
 	and purchase the product.
 */
-void person::goToMarket(vector<business> businesses) {
+void person::goToMarket(vector<business>* businesses) {
 	// go through each business and see what they have for sale, 
 	//  if you don't have an item, determine if the person 'wants' to purchase it
 	
-	for (int b = 0; b < businesses.size(); b++) {
-	   vector<productForSale>* catalogue = businesses.at(b).getCatalogue();
+	for (int b = 0; b < businesses->size(); b++) {
+	   vector<productForSale>* catalogue = businesses->at(b).getCatalogue();
 
 	   // go through the catalogue
 		for (int c = 0; c < catalogue->size(); c++) {
@@ -69,7 +67,7 @@ void person::goToMarket(vector<business> businesses) {
 				// process the purchase on the business end,
 				// then if there's stock and the business allows the purchase, 
 				// process on the customer/person end
-				bool hadStock = businesses.at(b).processPurchase(catalogue->at(c));
+				bool hadStock = businesses->at(b).processPurchase(catalogue->at(c));
 				if (hadStock) {
 					buyItem(catalogue->at(c));
 				} else {

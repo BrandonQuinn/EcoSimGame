@@ -27,7 +27,7 @@ bool business::processPurchase(productForSale product) {
 
 			// process purchase
 			catalogue->at(i).numberAvailable--;
-			money =+ (product.price - product.product.costToMake);
+			money += (product.price - product.product.costToMake);
 			break;
 		}
 	}

@@ -16,7 +16,8 @@ class person {
 		long money = 0;
 
 	public: 
-		void goToMarket(vector<business> businesses);
+		// go through each business and purchase required products
+		void goToMarket(vector<business>* businesses);
 
 		// purchase the item
 		void buyItem(productForSale itemForSale);
