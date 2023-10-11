@@ -8,7 +8,7 @@ using namespace std;
 class product {
 	public:
 		string name;
-		double costToMake;
+		long costToMake;
 		int life;
 		double failureChance;
 		double chanceOfRandomDisposal;

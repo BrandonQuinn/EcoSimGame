@@ -13,6 +13,7 @@ struct storedProduct {
 class person {
 	protected:
 		unordered_map<string, storedProduct> storedProducts;
+		long money = 0;
 
 	public: 
 		void goToMarket(vector<business> businesses);

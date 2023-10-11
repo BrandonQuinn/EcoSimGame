@@ -9,18 +9,21 @@ using namespace std;
 
 struct productForSale {
 	product product;
-	double price;
+	long price;
 	int numberAvailable;
 };
 
 class business {
 	protected: 
-		vector<productForSale> catalogue;
+		vector<productForSale>* catalogue;
 	public:
 		string name;
+		long money = 0;
+
+		business();
 
 		// Returns a vector of all products that this business has for sale
-		vector<productForSale> getCatalogue();
+		vector<productForSale>* getCatalogue();
 
 		// Check if there's stock, return false if there's none
 		// otherwise process the purchase
