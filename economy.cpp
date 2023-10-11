@@ -35,34 +35,46 @@ void economy::initSampleData() {
 
 	/* Create some test businesses */
 
-	business business;
-	business.name = "Car Company";
+	business carbusiness;
+	carbusiness.name = "Car Company";
 	
+	business clothingbusiness;
+	clothingbusiness.name = "Clothing Company";
+
+	business furniturebusiness;
+	furniturebusiness.name = "Furniture Company";
+
+	business computerbusiness;
+	computerbusiness.name = "Computer Company";
+
 	productForSale car;
 	car.product = products[2];
 	car.price = 22500;
 	car.numberAvailable = 70;
-	business.addProduct(car);
+	carbusiness.addProduct(car);
 
 	productForSale computer;
 	computer.product = products[4];
 	computer.price = 740;
 	computer.numberAvailable = 150;
-	business.addProduct(computer);
+	computerbusiness.addProduct(computer);
 
 	productForSale furniture;
 	furniture.product = products[3];
 	furniture.price = 5000;
 	furniture.numberAvailable = 100;
-	business.addProduct(furniture);
+	furniturebusiness.addProduct(furniture);
 
 	productForSale clothing;
 	clothing.product = products[1];
 	clothing.price = 50;
 	clothing.numberAvailable = 200;
-	business.addProduct(clothing);
+	clothingbusiness.addProduct(clothing);
 
-	businesses->push_back(business); 
+	businesses->push_back(carbusiness); 
+	businesses->push_back(clothingbusiness); 
+	businesses->push_back(furniturebusiness); 
+	businesses->push_back(computerbusiness); 
 
 	for (int i = 0; i < INIT_NUM_PEOPLE; i++) {
 		person person;
@@ -85,5 +97,5 @@ void economy::simulate() {
 
 	// TODO: update/alter economic trends
 
-	day++;
+	time++;
 }
