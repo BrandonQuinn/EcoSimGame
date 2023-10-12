@@ -24,13 +24,21 @@ storedProduct* person::findProduct(product product) {
 }
 
 /*
-	Add the product to the persons stored products.
+	Add the product to the persons stored products, if they already have it in 
+	their stored products, just reset the age to 0 making it a 'new' product.
 */
 void person::buyItem(productForSale itemForSale) {
-	storedProduct newPurchase;
-	newPurchase.product = itemForSale.product;
-	newPurchase.productAge = 0;
-	storedProducts.insert({newPurchase.product.name, newPurchase});
+	storedProduct* existingProduct = findProduct(itemForSale.product);
+
+	if (existingProduct == NULL) {
+		storedProduct newPurchase;
+		newPurchase.product = itemForSale.product;
+		newPurchase.productAge = 0;
+		storedProducts.insert({newPurchase.product.name, newPurchase});
+	} else {
+		existingProduct->productAge = 0;
+	}
+
 	money -= itemForSale.price;
 }
 
